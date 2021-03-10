@@ -100,18 +100,20 @@ public class ServiceValidator implements Validator {
             for (int i = 0; i < values.size(); ++i) {
                 var element = values.get(i);
 
-                if (element.getClass().isAnnotationPresent(Constrained.class))
-                    errors.addAll(validateFields(element, String.format("%s[%d].", path, i)));
+                if (element != null) {
+                    if (element.getClass().isAnnotationPresent(Constrained.class))
+                        errors.addAll(validateFields(element, String.format("%s[%d].", path, i)));
 
-                AnnotatedType annotatedType = null;
-                if (annotationType instanceof AnnotatedParameterizedType)
-                    annotatedType = ((AnnotatedParameterizedType) annotationType).getAnnotatedActualTypeArguments()[0];
+                    AnnotatedType annotatedType = null;
+                    if (annotationType instanceof AnnotatedParameterizedType)
+                        annotatedType = ((AnnotatedParameterizedType) annotationType).getAnnotatedActualTypeArguments()[0];
 
-                if (annotatedType != null) {
-                    errors.addAll(validateField(element, annotatedType, String.format("%s[%d]", path, i)));
+                    if (annotatedType != null) {
+                        errors.addAll(validateField(element, annotatedType, String.format("%s[%d]", path, i)));
 
-                    if (element instanceof List)
-                        errors.addAll(validateList((List<?>)element, annotatedType, String.format("%s[%d]", path, i)));
+                        if (element instanceof List)
+                            errors.addAll(validateList((List<?>)element, annotatedType, String.format("%s[%d]", path, i)));
+                    }
                 }
             }
         return errors;

@@ -64,7 +64,6 @@ class ServiceValidatorTest {
         }
     }
 
-
     @Test
     void validate() {
         var validator = ServiceValidator.getInstance();
