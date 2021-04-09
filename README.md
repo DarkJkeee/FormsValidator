@@ -3,7 +3,7 @@ Java validation library using ReflectionAPI and annotations.
 
 Annotations:
 
-**AnyOf
+- AnyOf
 **Constrained
 **InRange
 **Negative
